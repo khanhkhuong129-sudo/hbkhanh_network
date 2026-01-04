@@ -71,13 +71,20 @@ SNMP Traffic 64bit
 Kết quả thu được:
 <img width="975" height="213" alt="image" src="https://github.com/user-attachments/assets/a84dfba6-f74d-4db1-9453-4f00196cc931" />
 => Tuy nhiên thì ta thấy đồ thị vẽ không được đẹp biểu hiện không rõ.
+
 #LẤY DỮ LIỆU TỪ PRTG VÀ LƯU VÀO THƯ MỤC CHIA SẺ
+
 Phần này sẽ mô tả cách thức để máy PC ảo tự động gửi yêu cầu (request) đến API của PRTG nhằm lấy dữ liệu từ các sensor, sau đó lưu dữ liệu này dưới dạng file CSV vào thư mục chia sẻ (Shared Folder) giữa PC ảo và PC thật. Đây là quá trình quan trọng để đảm bảo rằng dữ liệu mạng được cập nhật liên tục, sẵn sàng để PC thật truy cập và lưu trữ vào cơ sở dữ liệu MySQL để phục vụ cho các công cụ giám sát như Grafana.
 - Để truy cập dữ liệu của PRTG qua API, trước tiên chúng ta cần tạo một API token nhằm cấp quyền truy cập bảo mật cho các yêu cầu (requests)
 <img width="940" height="248" alt="image" src="https://github.com/user-attachments/assets/3130935a-6820-4453-80db-9fc7208c67b7" />
+
 - Request API của PRTG dưới dạng dữ liệu lịch sử (Historic Data) : PRTG cho phép truy cập dữ liệu lịch sử của sensor qua API bằng cách gọi đến endpoint /api/historicdata.csv. Dữ liệu này giúp người dùng lấy thông tin đã lưu trữ từ trước, với tùy chọn thời gian cụ thể để phân tích.
+
 <img width="940" height="235" alt="image" src="https://github.com/user-attachments/assets/82a6fa91-fe34-41d9-91cc-f530c9007538" />
+
 => Ví dụ, với sensor ID là 2088, thời gian từ sdate=2023-10-01-10-00-00 đến edate=2023-10-01-10-02-00, ta có thể xây dựng URL như sau: http://192.168.205.100:8080/api/historicdata.csv?id=2088&avg=0&sdate=2023-10-01-10-00-00&edate=2023-10-01-10-02-00&apitoken=UL65L4A5G55G6U7EKO7QNXFDJNHBZKIFZ3BQUY5G4M======
+
 - Viết chương trình gửi request API để tải file CSV
 Mục tiêu: Tải dữ liệu từ các sensor của PRTG, lưu dưới dạng file CSV vào thư mục chia sẻ giữa hai máy tính. Dữ liệu này sẽ được sử dụng để giám sát lưu lượng mạng.
 Phương pháp: Sử dụng script Python để gọi API của PRTG theo chu kỳ, tải dữ liệu mới nhất từ các sensor.
+
