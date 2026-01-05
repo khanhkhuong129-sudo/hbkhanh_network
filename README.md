@@ -87,4 +87,7 @@ Phần này sẽ mô tả cách thức để máy PC ảo tự động gửi yê
 - Viết chương trình gửi request API để tải file CSV
 Mục tiêu: Tải dữ liệu từ các sensor của PRTG, lưu dưới dạng file CSV vào thư mục chia sẻ giữa hai máy tính. Dữ liệu này sẽ được sử dụng để giám sát lưu lượng mạng.
 Phương pháp: Sử dụng script Python để gọi API của PRTG theo chu kỳ, tải dữ liệu mới nhất từ các sensor.
-
+=> Hệ thống tải dữ liệu từ các sensor của PRTG một cách tự động và lưu trữ vào thư mục chia sẻ giữa PC ảo và PC thật. Đoạn mã sử dụng vòng lặp vô hạn để liên tục tải dữ liệu sau mỗi 2 phút, đảm bảo rằng dữ liệu luôn được cập nhật kịp thời. Các file CSV sau đó sẽ được PC thật truy cập, lưu trữ vào cơ sở dữ liệu MySQL và phục vụ cho quá trình trực quan hóa dữ liệu trên Grafana.
+5.	ĐỌC VÀ LƯU TRỮ DỮ LIỆU ĐÃ XỬ LÝ VÀO MYSQL
+Trong phần này, PC thật sẽ truy cập vào thư mục chia sẻ (Shared Folder) để đọc các file CSV do PC ảo tải về từ API của PRTG. Sau đó, PC thật sẽ xử lý dữ liệu, phân tích các giá trị cần thiết, và lưu vào cơ sở dữ liệu MySQL để phục vụ cho mục đích giám sát mạng.
+Source code ở mục Cod
